@@ -10,6 +10,6 @@ class UpdateTaskController extends Controller
 {
   public function __invoke(UpdateTaskRequest $request, TaskRepository $taskRepository, int $id): JsonResponse
   {
-      return response()->json($taskRepository->update($id, $request->all()));
+      return response()->json($taskRepository->update($id, $request->user()->id, $request->all()));
   }
 }

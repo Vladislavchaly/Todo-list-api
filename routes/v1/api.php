@@ -38,7 +38,7 @@ Route::group(['prefix' => 'task', 'middleware' => 'auth:api'], function () {
     Route::get('/', GetTasksController::class)->name('task.get');
     Route::post('/', CreateTaskController::class)->name('task.create');
     Route::get('/{id}', GetTaskController::class)->name('task.get-by-id');
-    Route::put('/{id}', UpdateTaskController::class)->name('task.update');
-    Route::put('/status/{id}', UpdateTaskStatusController::class)->name('task.update-status');
-    Route::delete('/{id}', UpdateTaskController::class)->name('task.update');
+    Route::put('/{task}', UpdateTaskController::class)->name('task.update');
+    Route::put('/status/{task}', UpdateTaskStatusController::class)->name('task.update-status');
+    Route::delete('/{task}', UpdateTaskController::class)->name('task.update');
 });
