@@ -59,6 +59,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
     {
         return $this->model->where('user_id', $userId)->whereNull('parent_id')->get();
     }
+
     public function getAllByUserId(int $userId): \Illuminate\Support\Collection
     {
         return $this->model->where('user_id', $userId)->get();

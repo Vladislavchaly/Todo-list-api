@@ -32,7 +32,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::middleware('auth:api')->delete('logout', LogoutController::class)->name('auth.logout');
 });
 
-Route::group(['prefix' => 'task', 'middleware' => ['auth:api',]], function () {
+Route::group(['prefix' => 'task', 'middleware' => ['auth:api']], function () {
     Route::get('/', GetTasksController::class)->name('task.get');
     Route::post('/', CreateTaskController::class)->name('task.create');
     Route::get('{task}', GetTaskController::class)->can('view', 'task')->name('task.get-by-id');
