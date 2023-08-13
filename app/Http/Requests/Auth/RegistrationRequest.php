@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 final class RegistrationRequest extends FormRequest
 {
@@ -28,5 +29,12 @@ final class RegistrationRequest extends FormRequest
             'email' => 'required||unique:users|email|max:255',
             'password' => 'required|confirmed|min:8',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'email' => Str::lower($this->email),
+        ]);
     }
 }

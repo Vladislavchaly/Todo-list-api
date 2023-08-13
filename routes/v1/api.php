@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function () {
+Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('/', GetController::class)->name('user.get');
 });
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', RegistrationController::class)->name('auth.register');
     Route::post('login', LoginController::class)->name('auth.login');
-    Route::middleware('auth:sanctum')->delete('logout', LogoutController::class)->name('auth.logout');
+    Route::middleware('auth:api')->delete('logout', LogoutController::class)->name('auth.logout');
 });

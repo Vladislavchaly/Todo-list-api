@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Api\v1\Auth;
 use App\Contracts\UserRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegistrationRequest;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class RegistrationController extends Controller
 {
     public function __invoke(
         RegistrationRequest $request,
         UserRepository $userRepository,
-    ): Response {
+    ): JsonResponse {
 
         $user = $userRepository->create($request->all());
 
-        return response([
+        return response()->json([
             'token' => 'Bearer ' . $user->createToken('sanctum')->plainTextToken,
         ], 200);
     }
