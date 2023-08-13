@@ -9,7 +9,7 @@ interface TaskRepository
 {
     public function create(array $data): Task;
 
-    public function update(int $id, int $userId, array $data): Task;
+    public function update(int $id, array $data): Task;
 
     public function delete(int $id): bool;
 
@@ -18,6 +18,8 @@ interface TaskRepository
     public function getByIdAndUserId(int $id, int $userId): Task;
 
     public function getAllByUserId(int $userId): Collection;
+
+    public function getAllParentByUserId(int $userId): Collection;
 
     public function getById(int $id): Task;
 }

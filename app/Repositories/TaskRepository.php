@@ -23,9 +23,15 @@ final class TaskRepository implements \App\Contracts\TaskRepository
         return $this->model;
     }
 
-    public function update(int $id, int $userId, array $data): Task
+    public function update(int $id, array $data): Task
     {
-        return $this->model->where('id', $id)->where('user_id', $userId)->update($data);
+        $task = $this->model::find($id);
+
+        if ($task) {
+            $task->update($data);
+        }
+
+        return $task;
     }
 
     public function delete(int $id): bool
@@ -49,6 +55,10 @@ final class TaskRepository implements \App\Contracts\TaskRepository
         return $this->model->where('id', $id)->where('user_id', $userId)->first();
     }
 
+    public function getAllParentByUserId(int $userId): \Illuminate\Support\Collection
+    {
+        return $this->model->where('user_id', $userId)->whereNull('parent_id')->get();
+    }
     public function getAllByUserId(int $userId): \Illuminate\Support\Collection
     {
         return $this->model->where('user_id', $userId)->get();

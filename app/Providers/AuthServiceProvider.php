@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Task;
+use App\Policies\TaskPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Sanctum\PersonalAccessToken;
 use Laravel\Sanctum\Sanctum;
@@ -14,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Task::class => TaskPolicy::class,
     ];
 
     /**
