@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Hash;
 
 final class TaskRepository implements \App\Contracts\TaskRepository
 {
@@ -47,7 +46,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
     public function getByIdAndUserId(int $id, int $userId): Task
     {
 
-        return $this->model->where('id', $id)->where('user_id', $userId)->get();
+        return $this->model->where('id', $id)->where('user_id', $userId)->first();
     }
 
     public function getAllByUserId(int $userId): \Illuminate\Support\Collection
