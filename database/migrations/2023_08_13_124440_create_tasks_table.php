@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->enum('status', ['todo', 'done'])->default('todo');
-            $table->timestamps('completed_at');
+            $table->timestamp('completed_at')->nullable(); // Fix this line
             $table->timestamps();
         });
     }

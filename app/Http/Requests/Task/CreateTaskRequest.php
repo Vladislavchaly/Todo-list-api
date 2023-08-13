@@ -27,7 +27,6 @@ class CreateTaskRequest extends FormRequest
             'priority' => 'required|integer|min:1|max:5',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'status' => 'required|string|in:todo,done',
             'completed_at' => 'nullable|date',
         ];
     }
