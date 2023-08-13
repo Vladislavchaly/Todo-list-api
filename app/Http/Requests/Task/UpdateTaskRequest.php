@@ -22,11 +22,11 @@ class UpdateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'parent_id' => 'nullable|exists:tasks,id',
+            'parentId' => 'nullable|exists:tasks,id',
             'priority' => 'required|integer|min:1|max:5',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'completed_at' => 'nullable|date',
+            'completedAt' => 'nullable|date',
         ];
     }
 }
