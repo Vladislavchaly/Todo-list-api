@@ -30,7 +30,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
 
     public function delete(int $id): bool
     {
-       return $this->model->destroy($id);
+        return $this->model->destroy($id);
     }
 
     public function getAll(): Collection

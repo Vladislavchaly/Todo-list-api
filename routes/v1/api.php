@@ -32,13 +32,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::middleware('auth:api')->delete('logout', LogoutController::class)->name('auth.logout');
 });
 
-
-
 Route::group(['prefix' => 'task', 'middleware' => 'auth:api'], function () {
     Route::get('/', GetTasksController::class)->name('task.get');
     Route::post('/', CreateTaskController::class)->name('task.create');
-    Route::get('/{id}', GetTaskController::class)->name('task.get-by-id');
-    Route::put('/{task}', UpdateTaskController::class)->name('task.update');
-    Route::put('/status/{task}', UpdateTaskStatusController::class)->name('task.update-status');
-    Route::delete('/{task}', UpdateTaskController::class)->name('task.update');
+    Route::get('{id}', GetTaskController::class)->name('task.get-by-id');
+    Route::put('{task}', UpdateTaskController::class)->name('task.update');
+    Route::put('status/{task}', UpdateTaskStatusController::class)->name('task.update-status');
+    Route::delete('{task}', UpdateTaskController::class)->name('task.update');
 });

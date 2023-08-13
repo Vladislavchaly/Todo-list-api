@@ -8,8 +8,8 @@ use Illuminate\Http\JsonResponse;
 
 class DeleteTaskStatusController extends Controller
 {
-  public function __invoke(TaskRepository $taskRepository, int $id): JsonResponse
-  {
-      return response()->json($taskRepository->delete($id));
-  }
+    public function __invoke(TaskRepository $taskRepository, int $id): JsonResponse
+    {
+        return response()->json($taskRepository->delete($id));
+    }
 }
