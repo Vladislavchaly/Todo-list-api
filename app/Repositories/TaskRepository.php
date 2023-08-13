@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 final class TaskRepository implements \App\Contracts\TaskRepository
 {
@@ -55,13 +56,13 @@ final class TaskRepository implements \App\Contracts\TaskRepository
         return $this->model->where('id', $id)->where('user_id', $userId)->first();
     }
 
-    public function getAllParentByUserId(int $userId): \Illuminate\Support\Collection
+    public function getAllParentByUserId(int $userId): LengthAwarePaginator
     {
-        return $this->model->where('user_id', $userId)->whereNull('parent_id')->get();
+        return $this->model->where('user_id', $userId)->whereNull('parent_id')->paginate(15);
     }
 
-    public function getAllByUserId(int $userId): \Illuminate\Support\Collection
+    public function getAllByUserId(int $userId): LengthAwarePaginator
     {
-        return $this->model->where('user_id', $userId)->get();
+        return $this->model->where('user_id', $userId)->paginate(15);
     }
 }

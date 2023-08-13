@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use App\Models\Task;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface TaskRepository
@@ -17,9 +18,9 @@ interface TaskRepository
 
     public function getByIdAndUserId(int $id, int $userId): Task;
 
-    public function getAllByUserId(int $userId): Collection;
+    public function getAllByUserId(int $userId): LengthAwarePaginator;
 
-    public function getAllParentByUserId(int $userId): Collection;
+    public function getAllParentByUserId(int $userId): LengthAwarePaginator;
 
     public function getById(int $id): Task;
 }
