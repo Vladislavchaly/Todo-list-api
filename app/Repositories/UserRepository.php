@@ -38,12 +38,12 @@ final class UserRepository implements \App\Contracts\UserRepository
 
     public function getAll(): Collection
     {
-        return $this->model->with('role')->get();
+        return $this->model->get();
     }
 
     public function getById(int $id): User
     {
-        return $this->model->with('role')->find($id)->first();
+        return $this->model->find($id)->first();
     }
 
     public function getByEmail(string $email): User
@@ -53,6 +53,6 @@ final class UserRepository implements \App\Contracts\UserRepository
 
     public function getByToken(string $token): User
     {
-        return $this->model->with('role')->where('token', $token)->first();
+        return $this->model->where('token', $token)->first();
     }
 }
