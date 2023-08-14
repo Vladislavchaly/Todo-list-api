@@ -83,9 +83,30 @@ final class TaskRepository implements \App\Contracts\TaskRepository
         return $query->paginate($limit, ['*'], 'page', $page);
     }
 
-    public function getAllByUserId(int $userId, array $filter, int $page, int $limit): LengthAwarePaginator
+    public function getAllByUserId(int $userId, array $filters, int $page, int $limit): LengthAwarePaginator
     {
         $query = $this->model::query()->where('user_id', $userId);
+
+        if (isset($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        if (isset($filters['priority_from'])) {
+            $query->where('priority', '>=', $filters['priority_from']);
+        }
+
+        if (isset($filters['priority_to'])) {
+            $query->where('priority', '<=', $filters['priority_to']);
+        }
+
+        if (isset($filters['title'])) {
+            $query->where('title', 'LIKE', '%' . $filters['title'] . '%');
+        }
+
+        if (isset($filters['sort_by'])) {
+            $query->orderBy($filters['sort_by']);
+        }
+
 
         return $query->paginate($limit, ['*'], 'page', $page);
     }
