@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\UncompletedSubtasksException;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -37,7 +39,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
 
     public function delete(int $id): bool
     {
-        return $this->model->destroy($id);
+        return $this->model::query()->where('id', $id)->where('status', 'todo')->delete();
     }
 
     public function getAll(): Collection
@@ -60,25 +62,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
     {
         $query = $this->model::query()->where('user_id', $userId)->whereNull('parent_id');
 
-        if (isset($filters['status'])) {
-            $query->where('status', $filters['status']);
-        }
-
-        if (isset($filters['priority_from'])) {
-            $query->where('priority', '>=', $filters['priority_from']);
-        }
-
-        if (isset($filters['priority_to'])) {
-            $query->where('priority', '<=', $filters['priority_to']);
-        }
-
-        if (isset($filters['title'])) {
-            $query->where('title', 'LIKE', '%' . $filters['title'] . '%');
-        }
-
-        if (isset($filters['sort_by'])) {
-            $query->orderBy($filters['sort_by']);
-        }
+        $this->applyFiltersToQuery($query, $filters);
 
         return $query->paginate($limit, ['*'], 'page', $page);
     }
@@ -87,6 +71,33 @@ final class TaskRepository implements \App\Contracts\TaskRepository
     {
         $query = $this->model::query()->where('user_id', $userId);
 
+        $this->applyFiltersToQuery($query, $filters);
+
+        return $query->paginate($limit, ['*'], 'page', $page);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function updateStatus(int $id, string $status): Task
+    {
+        $task = $this->model::find($id);
+
+        if (!$task) {
+            throw new \Exception("Task with ID $id not found.");
+        }
+
+        if ($this->model::where('parent_id', $id)->where('status', 'todo')->exists()) {
+            throw new UncompletedSubtasksException();
+        }
+
+        $task->update(['status' => $status]);
+
+        return $task;
+    }
+
+    private function applyFiltersToQuery(Builder $query, array $filters): void
+    {
         if (isset($filters['status'])) {
             $query->where('status', $filters['status']);
         }
@@ -107,6 +118,5 @@ final class TaskRepository implements \App\Contracts\TaskRepository
             $query->orderBy($filters['sort_by']);
         }
 
-        return $query->paginate($limit, ['*'], 'page', $page);
     }
 }

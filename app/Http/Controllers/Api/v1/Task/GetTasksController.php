@@ -12,9 +12,8 @@ class GetTasksController extends Controller
 {
     public function __invoke(GetTasksRequest $request, TaskRepository $taskRepository): JsonResponse
     {
-        return response()->json(
-            TaskResource::collection(
-                $taskRepository->getAllParentByUserId($request->user()->id, $request->all(), $request->page, $request->limit)
-            )->response()->getData(true));
+        return response()->json(TaskResource::collection(
+            $taskRepository->getAllParentByUserId($request->user()->id, $request->all(), $request->page, $request->limit)
+        )->response()->getData(true));
     }
 }
