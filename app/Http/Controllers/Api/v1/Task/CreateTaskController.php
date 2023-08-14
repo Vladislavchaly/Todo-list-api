@@ -12,8 +12,12 @@ class CreateTaskController extends Controller
 {
     public function __invoke(CreateTaskRequest $request, TaskRepository $taskRepository): JsonResponse
     {
-        $request->userId = $request->user()->id;
-
-        return response()->json(TaskResource::make($taskRepository->create($request->all())));
+        return response()->json(
+            TaskResource::make(
+                $taskRepository->create(
+                    ['userId' => $request->user()->id, ...$request->all()]
+                )
+            )
+        );
     }
 }
