@@ -56,7 +56,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
         return $this->model->where('id', $id)->where('user_id', $userId)->first();
     }
 
-    public function getAllParentByUserId(int $userId, array $filter, ?int $page = 1, ?int $limit = 15): LengthAwarePaginator
+    public function getAllParentByUserId(int $userId, array $filters, ?int $page = 1, ?int $limit = 15): LengthAwarePaginator
     {
         $query = $this->model::query()->where('user_id', $userId)->whereNull('parent_id');
 
@@ -85,6 +85,8 @@ final class TaskRepository implements \App\Contracts\TaskRepository
 
     public function getAllByUserId(int $userId, array $filter, int $page, int $limit): LengthAwarePaginator
     {
-        return $this->model::query()->where('user_id', $userId)->paginate($limit, ['*'], 'page', $page);
+        $query = $this->model::query()->where('user_id', $userId);
+
+        return $query->paginate($limit, ['*'], 'page', $page);
     }
 }
