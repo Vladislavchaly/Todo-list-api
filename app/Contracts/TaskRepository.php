@@ -20,7 +20,7 @@ interface TaskRepository
 
     public function getAllByUserId(int $userId, array $filter, int $page, int $limit): LengthAwarePaginator;
 
-    public function getAllParentByUserId(int $userId, array $filter, int $page, int $limit): LengthAwarePaginator;
+    public function getAllParentByUserId(int $userId, array $filter, int $page = 1, int $limit = 15): LengthAwarePaginator;
 
     public function getById(int $id): Task;
 }

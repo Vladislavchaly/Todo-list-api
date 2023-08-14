@@ -56,13 +56,35 @@ final class TaskRepository implements \App\Contracts\TaskRepository
         return $this->model->where('id', $id)->where('user_id', $userId)->first();
     }
 
-    public function getAllParentByUserId(int $userId): LengthAwarePaginator
+    public function getAllParentByUserId(int $userId, array $filter, ?int $page = 1, ?int $limit = 15): LengthAwarePaginator
     {
-        return $this->model->where('user_id', $userId)->whereNull('parent_id')->paginate(15);
+        $query = $this->model::query()->where('user_id', $userId)->whereNull('parent_id');
+
+        if (isset($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        if (isset($filters['priority_from'])) {
+            $query->where('priority', '>=', $filters['priority_from']);
+        }
+
+        if (isset($filters['priority_to'])) {
+            $query->where('priority', '<=', $filters['priority_to']);
+        }
+
+        if (isset($filters['title'])) {
+            $query->where('title', 'LIKE', '%' . $filters['title'] . '%');
+        }
+
+        if (isset($filters['sort_by'])) {
+            $query->orderBy($filters['sort_by']);
+        }
+
+        return $query->paginate($limit, ['*'], 'page', $page);
     }
 
-    public function getAllByUserId(int $userId): LengthAwarePaginator
+    public function getAllByUserId(int $userId, array $filter, int $page, int $limit): LengthAwarePaginator
     {
-        return $this->model->where('user_id', $userId)->paginate(15);
+        return $this->model::query()->where('user_id', $userId)->paginate($limit, ['*'], 'page', $page);
     }
 }
