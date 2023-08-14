@@ -107,7 +107,6 @@ final class TaskRepository implements \App\Contracts\TaskRepository
             $query->orderBy($filters['sort_by']);
         }
 
-
         return $query->paginate($limit, ['*'], 'page', $page);
     }
 }

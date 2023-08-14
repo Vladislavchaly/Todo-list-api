@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1\Task;
 use App\Contracts\TaskRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\CreateTaskRequest;
+use App\Http\Resources\TaskResource;
 use Illuminate\Http\JsonResponse;
 
 class CreateTaskController extends Controller
@@ -13,6 +14,6 @@ class CreateTaskController extends Controller
     {
         $request->userId = $request->user()->id;
 
-        return response()->json($taskRepository->create($request->all()));
+        return response()->json(TaskResource::make($taskRepository->create($request->all())));
     }
 }
