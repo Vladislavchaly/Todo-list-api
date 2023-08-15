@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div class="markdown prose w-full break-words dark:prose-invert light">
+    <h1>Todo List API</h1>
+    <p>This is the API documentation for managing tasks in a todo list.</p>
+    <h2>User Registration</h2>
+    <p>Register a new user in the system.</p>
+    <h3>Request</h3>
+    <pre><div class="bg-black rounded-md mb-4"><div
+                class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">POST /api/auth/register
+Accept: application/json
+Content-Type: application/json
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+{
+"email": "test@gmail.com",
+"password": "Test122234",
+"password_confirmation": "Test122234",
+"name": "Test User Name"
+}
+</code></div></div></pre>
+<h2>User Login</h2>
+<p>Authenticate a user to access other API functionalities.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">POST /api/auth/login
+Accept: application/json
+Content-Type: application/json
 
-## About Laravel
+{
+"email": "cHaly95@gmail.com",
+"password": "1Qwerty@"
+}
+</code></div></div></pre>
+<h2>User Logout</h2>
+<p>Log out an authenticated user from the system.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">DELETE /api/auth/logout
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
+</code></div></div></pre>
+<h2>Get User Data</h2>
+<p>Retrieve information about the authenticated user.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">GET /api/user
+Accept: application/json
+Authorization: Bearer &lt;token&gt;
+</code></div></div></pre>
+<h2>Create New Task</h2>
+<p>Create a new task in the todo list.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">POST /api/task/
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+{
+"parentId": 1,
+"priority": 2,
+"title": "Test122234",
+"description": "Test User Name",
+"completedAt": "2023-08-14 10:18:05"
+}
+</code></div></div></pre>
+<h2>Get Task List</h2>
+<p>Retrieve a list of tasks with filtering and pagination options.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">GET /api/task/
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+{
+"status": "todo",
+"priority_from": 2,
+"priority_to": 2,
+"title": "Test",
+"sort_by": "created_at",
+"page": 1,
+"limit": 15
+}
+</code></div></div></pre>
+<h2>Get Task by ID</h2>
+<p>Retrieve information about a specific task by its identifier.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">GET /api/task/&lt;id&gt;
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
+</code></div></div></pre>
+<h2>Delete Task by ID</h2>
+<p>Delete a task by its identifier.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">DELETE /api/task/&lt;id&gt;
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
+</code></div></div></pre>
+<h2>Update Task Status</h2>
+<p>Update the status of a task by its identifier.</p>
+<h3>Request</h3>
+<pre><div class="bg-black rounded-md mb-4"><div
+class="p-4 overflow-y-auto"><code class="!whitespace-pre hljs language-http">PATCH /api/task/status/&lt;id&gt;
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+{
+"status": "done"
+}
+</code></div></div></pre>
+<h3>Technologies Used</h3>
+<p>This API is built using the following technologies:</p>
+<ul>
+<li><strong>Laravel</strong>: A powerful PHP framework for web application development.</li>
+<li><strong>MySQL</strong>: A popular relational database management system for data storage and retrieval.</li>
+<li><strong>Docker</strong>: A containerization platform used for creating, deploying, and running applications
+in isolated environments.
+</li>
+</ul>
+<p>Feel free to use these API endpoints to interact with your todo list application.</p></div>
