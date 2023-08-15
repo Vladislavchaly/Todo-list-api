@@ -49,7 +49,7 @@ final class TaskRepository implements \App\Contracts\TaskRepository
 
     public function getById(int $id): Task
     {
-        return $this->model->find($id)->first();
+        return $this->model->find($id);
     }
 
     public function getByIdAndUserId(int $id, int $userId): Task

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\Auth\LoginController;
 use App\Http\Controllers\Api\v1\Auth\LogoutController;
 use App\Http\Controllers\Api\v1\Auth\RegistrationController;
 use App\Http\Controllers\Api\v1\Task\CreateTaskController;
+use App\Http\Controllers\Api\v1\Task\DeleteTaskController;
 use App\Http\Controllers\Api\v1\Task\GetTaskController;
 use App\Http\Controllers\Api\v1\Task\GetTasksController;
 use App\Http\Controllers\Api\v1\Task\UpdateTaskController;
@@ -37,6 +38,6 @@ Route::group(['prefix' => 'task', 'middleware' => ['auth:api']], function () {
     Route::post('/', CreateTaskController::class)->name('task.create');
     Route::get('{task}', GetTaskController::class)->can('view', 'task')->name('task.get-by-id');
     Route::put('{task}', UpdateTaskController::class)->can('update', 'task')->name('task.update');
-    Route::put('status/{task}', UpdateTaskStatusController::class)->can('update', 'task')->name('task.update-status');
-    Route::delete('{task}', UpdateTaskController::class)->can('delete', 'task')->name('task.update');
+    Route::patch('status/{task}', UpdateTaskStatusController::class)->can('update', 'task')->name('task.update-status');
+    Route::delete('{task}', DeleteTaskController::class)->can('delete', 'task')->name('task.update');
 });

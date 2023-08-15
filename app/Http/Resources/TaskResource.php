@@ -12,6 +12,18 @@ class TaskResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    /**
+     * @OA\Schema(
+     *     schema="Task",
+     *     @OA\Property(property="id", type="integer"),
+     *     @OA\Property(property="title", type="string"),
+     *     @OA\Property(property="status", type="string"),
+     *     @OA\Property(property="priority", type="integer"),
+     *     @OA\Property(property="created_at", type="string", format="date-time"),
+     *     @OA\Property(property="sub_task", type="array", @OA\Items(ref="#/components/schemas/Task")),
+     * )
+     */
+
     public function toArray(Request $request): array
     {
         return [
